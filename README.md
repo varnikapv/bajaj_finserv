@@ -1,51 +1,53 @@
 
 
+# Hierarchify
+
+This repository contains my solution for the SRM Full Stack Engineering Challenge. I decided to build the frontend and backend in the same repository as a unified full-stack application (using Vite + React for the frontend and Express for the node backend). This makes development and deployment a lot smoother.
+
 ## Tech Stack
-- **Backend:** Node.js, Express
-- **Frontend:** React, Vite, Tailwind CSS
-- **Language:** TypeScript
+*   **Backend:** Node.js, Express.js
+*   **Frontend:** React (Vite configuration), Tailwind CSS for styling
+*   **Language:** TypeScript throughout the entire stack
 
-## Setup & Running Locally
+## Development Setup
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Start the development server (runs both frontend and backend combined):
-   ```bash
-   npm run dev
-   ```
-   The application will be accessible at `http://localhost:3000`.
+If you want to run this locally:
 
-## Deployment
+1.  Clone the repository and install the dependencies:
+    ```bash
+    npm install
+    ```
+2.  Start the development server:
+    ```bash
+    npm run dev
+    ```
+    This single command spins up the backend on port 3000 and uses Vite as a development middleware so both run seamlessly. You can view the app at `http://localhost:3000`.
 
-The application is structured as a full-stack project where the Express server also serves the React frontend in production. **You can deploy this as a single application and use the same base domain for both the frontend and backend submission links.**
+## Production & Deployment
 
-When deploying to platforms like **Render**, **Railway**, **Vercel**, or **Heroku**:
-- **Build Command:** `npm run build`
-- **Start Command:** `npm run start`
+To deploy this, you can just host it as a Node.js web service on any platform (Render, Railway, Heroku, etc.).
 
-**For the submission form:**
-- **Hosted API base URL:** `https://<your-deployed-domain>` (the evaluator script will append `/bfhl` to this base URL)
-- **Hosted frontend URL:** `https://<your-deployed-domain>`
+*   **Build string:** `npm run build`
+*   **Start string:** `npm run start`
 
-## Features Implemented
-- **POST `/bfhl` API Endpoint:** Accurately processes arrays of node strings, detects cyclic vs non-cyclic relationships, and constructs valid nested trees.
-- **Cycle Detection:** Identifies isolated cycles using Kahn's algorithm concepts and lexicographically sorts them when finding the root.
-- **Frontend App:** Modern dashboard built with React and Tailwind CSS that POSTs data to the backend and dynamically renders the nested trees and validation arrays.
+**Note for submission:** Since both the Express API and the React frontend are served from the exact same domain in production, you can submit the **same link** for both the Backend and Frontend fields in the form! 
+*   **Frontend URL:** `https://your-deployed-domain.com`
+*   **API Base URL:** `https://your-deployed-domain.com` (the evaluator will hit `/bfhl` automatically).
 
-## Git Commit Note for Submission
-If you are initializing a Git repository to push this code, here is an example of a good initial commit message:
-```bash
-git init
-git add .
-git commit -m "feat: complete full stack implementation for SRM challenge
+## Features & Implementation Details
 
-- Add Express backend with /bfhl POST endpoint
-- Implement node parsing, cycle detection, and JSON tree construction
-- Build React SPA for data visualization and interaction
-- Add final Tailwind CSS dark mode styling"
-git branch -M main
-git remote add origin <your-repo-url>
-git push -u origin main
+*   **Core Logic:** The `/bfhl` POST route processes the arrays of edges. I implemented cycle detection by identifying independent groups and verifying roots.
+*   **Edge Cases Handled:** Cycles are accurately isolated (returning `has_cycle: true` without an invalid nested tree), diamond multi-parent edge cases are resolved gracefully by keeping the first encountered relationship, and generic edge validation avoids throwing 500 errors on bad inputs.
+*   **UI/UX:** Instead of a generic table, I built a custom tree-viewer for the hierarchies to make it easier to read deeply nested structures. The UI handles errors gracefully instead of breaking.
+
+## Commit Message Example
+
+If you need a human-like initial commit note for your repo, feel free to use:
+```
+init: setup fullstack app for srm challenge
+
+- add express server and /bfhl processing logic
+- set up cycle detection and graph construction
+- create react UI with tree viewer and tailwind styling
+- combine vite and express for easy unified deployment
 ```

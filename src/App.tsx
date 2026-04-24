@@ -41,7 +41,8 @@ export default function App() {
       console.log(res);
 
       if (!res.ok) {
-        throw new Error(`API Error: ${res.statusText}`);
+        const errorText = await res.text().catch(() => 'No response body');
+        throw new Error(`API Error: ${res.status} ${res.statusText} - ${errorText}`);
       }
 
       const data = await res.json();
