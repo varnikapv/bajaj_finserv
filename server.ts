@@ -41,7 +41,6 @@ async function startServer() {
   } else {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
-    // Notice: For Express v4, using '*' is correct. Express v5 would use '*all'. The instruction says fallback handling depending on version. We'll use '*'
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });

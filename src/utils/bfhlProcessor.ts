@@ -169,9 +169,6 @@ function buildNestedTree(root: string, childrenMap: Map<string, string[]>): { tr
   let depth = 1;
   const tree: any = {};
   
-  // Actually we need the tree structure around the root: {"A": {"B": {"D": {}}, "C": { ... }}}
-  // Wait, the specification shows: "tree": { "A": { "B": { "D": {} }, "C": { ... } } }
-  // So the root node IS the top-level key of 'tree'.
   let maxPathSub = 0;
   tree[root] = {};
   
