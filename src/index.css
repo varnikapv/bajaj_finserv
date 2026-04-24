@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #080808;
+  --color-surface: #111111;
+  --color-accent: #A38D6D;
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-text-main: #EAEAEA;
+  --color-text-dim: #666666;
+  --color-success: #88A088;
+  --color-danger: #A08888;
+
+  --font-sans: "Helvetica Neue", Arial, sans-serif;
+  --font-serif: Georgia, serif;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+}
