@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { processBfhlData } from "../src/utils/bfhlProcessor";
+import { processBfhlData } from "./bfhlProcessor";
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   // Set CORS headers
@@ -18,7 +18,15 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 
   if (req.method === 'POST') {
     try {
-      const { data } = req.body;
+      let body;
+      try {
+        body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+      } catch (e) {
+        return res.status(400).json({ error: "Invalid JSON body" });
+      }
+
+      const { data } = body || {};
+      
       if (!Array.isArray(data)) {
         return res.status(400).json({ error: "Invalid request payload. 'data' array is required." });
       }
