@@ -1,6 +1,6 @@
 {
-  "name": "",
-  "description": "",
+  "name": "Hierarchify",
+  "description": "A full-stack hierarchy processor and visualizer for detecting cycles and building nested trees from node relations.",
   "requestFramePermissions": [],
   "majorCapabilities": []
 }

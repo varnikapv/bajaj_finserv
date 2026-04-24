@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { createServer as createViteServer } from "vite";
-import { processBfhlData } from "./src/utils/bfhlProcessor";
+import { processBfhlData } from "./src/utils/bfhlProcessor.ts";
 
 async function startServer() {
   const app = express();
